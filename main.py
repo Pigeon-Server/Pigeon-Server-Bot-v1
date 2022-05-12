@@ -3,8 +3,8 @@
 import pymysql
 import re
 from mirai import *
-from modes.servertools import *
-from modes.config import *
+from module.servertools import *
+from module.config import *
 if __name__ == '__main__':
 
     # 连接数据库
