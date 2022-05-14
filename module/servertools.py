@@ -1,8 +1,7 @@
-# 模块
+# 工具部分
 from rcon.source import *
 from module.config import *
 from module.logger import log
-# 发送群消息
 
 
 # 服务器执行
