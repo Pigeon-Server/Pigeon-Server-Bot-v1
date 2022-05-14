@@ -1,6 +1,7 @@
 # 配置文件
 import json
 from pathlib import Path
+from module.logger import log
 
 
 def New_config():
@@ -23,14 +24,14 @@ def New_config():
         "RCON_host": "127.0.0.1",  # RCON地址
         "RCON_post": "1337",  # RCON端口
     }
-    print("[Bot]正在尝试创建配置文件")
+    log.debug("[Bot]正在尝试创建配置文件")
     try:
         with open("config.json", "w") as write_file:
             json.dump(config, write_file, indent="\t", sort_keys=True)
     except:
-        print("[Bot]配置文件创建失败")
+        log.error("[Bot]配置文件创建失败")
     else:
-        print("[Bot]配置文件创建成功")
+        log.debug("[Bot]配置文件创建成功")
 
 
 config = Path("config.json")
@@ -41,8 +42,7 @@ else:
         try:
             config = json.load(open("config.json", "r"))
         except:
-            print("[Bot]Json文件已损坏，正在尝试重新创建")
+            log.error("[Bot]Json文件已损坏，正在尝试重新创建")
             New_config()
         else:
             break
-    print(config["QQ"])
