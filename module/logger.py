@@ -26,7 +26,7 @@ def outputlog(filename, level="info"):
     # 设置日志级别
     log.setLevel(level_relations.get(level))
     # 日志输出格式
-    fmt = logging.Formatter('[{time}] - %(levelname)s: %(message)s'.format(time=datetime.datetime.strftime(datetime.datetime.now(), '%H:%M:%S')))
+    fmt = logging.Formatter('[{time}] - %(levelname)s: %(message)s'.format(time=datetime.datetime.strftime(datetime.datetime.now(), '%m-%d %H:%M:%S')))
     # 输出到控制台
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(fmt)
