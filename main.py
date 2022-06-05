@@ -316,7 +316,7 @@ if __name__ == '__main__':
     async def help(event: GroupMessage):
         msg = str(event.message_chain)
         qun = event.sender.group.id
-        if msg[:1] is not "!":
+        if msg[:1] != "!":
             answer = await FAQ(qun, msg)
             QQ = str(event.sender.id)
             if answer is not None:
