@@ -18,4 +18,4 @@ Pigeon Server · 气人姬部分功能实现
 - 假人登记/自动踢出未登记假人
 
 ## 使用的SDK
-(YiriMirai)[https://github.com/YiriMiraiProject/YiriMirai]
+[YiriMirai](https://github.com/YiriMiraiProject/YiriMirai)
