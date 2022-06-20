@@ -1,7 +1,5 @@
 # 工具模块
-import asyncio
-from datetime import *
-from threading import Timer
+import socket
 from rcon.source import *
 from mcstatus import JavaServer
 from module.sqlrelated import *
@@ -10,95 +8,58 @@ from module.logger import *
 
 
 # 服务器执行
-async def server_run(command):
+async def server_run(command: str):
     try:
-        log.debug("[RCON]执行命令：{comm}".format(comm=command))
+        logger.debug("[RCON]执行命令：{comm}".format(comm=command))
         return await rcon(
             command,
             host=config["RCON_host"], port=config["RCON_post"], passwd=config["RCON_password"]
         )
     except:
-        log.error("[RCON]发生错误,请检查配置是否出错")
-
-
-# 服务器执行(测试服)
-async def server_run_test(command):
-    try:
-        log.debug("[RCON]执行命令：{comm}".format(comm=command))
-        return await rcon(
-            command,
-            host=config["RCON_host_test"], port=config["RCON_post_test"], passwd=config["RCON_password_test"]
-        )
-    except:
-        log.error("[RCON]发生错误,请检查配置是否出错")
+        logger.error("[RCON]发生错误,请检查配置是否出错")
 
 
 # 添加白名单
-async def whitelist_add(player):
+async def whitelist_add(player: str):
     output = await server_run("easywhitelist add {player}".format(player=player))
     if "Player is already whitelisted" in output:
         return 1
     elif "Added" in output:
-        log.info("[白名单-add]:已成功给予{player}白名单".format(player=player))
+        logger.info("[白名单-add]:已成功给予{player}白名单".format(player=player))
         return 0
     else:
         return -1
 
 
 # 移除白名单
-async def whitelist_del(player):
+async def whitelist_del(player: str):
     output = await server_run("easywhitelist remove {player}".format(player=player))
     if "Player is not whitelisted" in output:
         print("[白名单-del]:该玩家未拥有白名单")
         return -1
     elif "Removed" in output:
-        log.info("[白名单-del]:已成功移除{player}白名单".format(player=player))
+        logger.info("[白名单-del]:已成功移除{player}白名单".format(player=player))
         return 0
-
-
-# 给予op
-async def op_add(player):
-    output = await server_run_test("op {player}".format(player=player))
-    if "already" in output:
-        return 1
-    elif "a server operator" in output:
-        log.info("[OP-add]:已成功给予{player}白名单".format(player=player))
-        return 0
-    else:
-        return -1
-
-
-# 移除op
-async def op_del(player):
-    output = await server_run_test("deop {player}".format(player=player))
-    if "The player is not an operator" in output:
-        print("[OP-del]:该玩家未拥有OP")
-        return 1
-    elif "no longer a server operator" in output:
-        log.info("[OP-del]:已成功给予{player}白名单".format(player=player))
-        return 0
-    else:
-        return -1
 
 
 # ban 添加
-async def ban_add(player, reason=None):
+async def ban_add(player: str, reason: str = None):
     await whitelist_del(player)
     output = await server_run("ban {player} {reason}".format(player=player, reason=reason))
     if "Nothing changed. The player is already banned" in output:
         print("[黑名单-add]:该玩家已在黑名单列表")
     elif "Banned by" in output:
-        log.info("[黑名单-add]:已成功将{player}移入黑名单".format(player=player))
+        logger.info("[黑名单-add]:已成功将{player}移入黑名单".format(player=player))
         return 0
 
 
 # ban 删除
-async def ban_del(player):
+async def ban_del(player: str):
     output = await server_run("pardon {player}".format(player=player))
     if "Nothing changed. The player isn't banned" in output:
         print("[白名单-del]:该玩家未在黑名单内")
     elif "Unbanned" in output:
-        log.info("[黑名单-del]:已成功移出{player}黑名单".format(player=player))
+        logger.info("[黑名单-del]:已成功移出{player}黑名单".format(player=player))
         return 0
 
 
@@ -112,9 +73,13 @@ async def get_server_players_list():
             status = server.status()  # 启动连接
             for player in status.players.sample:
                 temp_str = temp_str + "[{name}] ".format(name=str(player.name))
-        except:
-            log.error("连接错误")
+        # 连接错误
+        except socket.gaierror:
+            logger.error("连接错误")
             temp_str = temp_str + "服务器连接失败"
+        # Forge无玩家时会返回一个None，解决（屏蔽）这个问题
+        except TypeError:
+            pass
         temp_str = temp_str + "\n"
 
     return temp_str
@@ -123,17 +88,34 @@ async def get_server_players_list():
 # 检查服务器状态
 async def Server_Status():
     online = 0
-    max = 0
+    playerNumber = 0
     for index, host in enumerate(config["serverlist"]):
         try:
             server = JavaServer.lookup(host)  # 连接服务器
             status = server.status()  # 启动连接
             online = online + status.players.online
-            max = max + status.players.max
+            playerNumber = playerNumber + status.players.max
         except:
-            log.error("连接错误")
+            logger.error("连接错误")
     players = await get_server_players_list()
-    return "[Bot-服务器状态]\n在线人数：{online}/{max}\n在线玩家列表：\n{players}".format(online=online, max=max, players=players)
+    return "[Bot-服务器状态]\n在线人数：{online}/{max}\n在线玩家列表：\n{players}".format(online=online, max=playerNumber, players=players)
+
+# 取消玩家白名单
+async def auto_del_whitelist(QQ_ID: int, Group_ID: int, Cause: str):
+    Inquire = cursor.execute("SELECT player_name from whitelist where QQ = '{QQ}'".format(QQ=QQ_ID))
+    if Inquire and Group_ID == config["player_qun"]:
+        picklData = cursor.fetchall()
+        player = picklData[0][0]
+        await whitelist_del(player)
+        await server_run("kick " + player)
+        await sql_run("DELETE from whitelist as wait where QQ = '{QQ}'".format(QQ=QQ_ID))
+        return {
+            "player_msg": "[Bot-自动化]\n{QQ}{Cause}，已自动取消{player}的白名单！".format(QQ=QQ_ID, player=player, Cause=Cause),
+            "admin_msg": "[Bot-自动化]已自动取消玩家：{player}白名单！".format(QQ=QQ_ID, player=player)
+        }
+    else:
+        logger.info("该QQ名下未绑定玩家")
+
 
 # 定时任务-踢出未登记假人
 '''def kick_bot():
@@ -173,4 +155,3 @@ async def Server_Status():
             # asyncio.run(say_group(config["player_qun"], "Bot：{bot}未登记被踢出！".format(bot="bot_" + server_bot_list[i])))
             i += 1
     Timer(60.0, kick_bot).start()'''
-
