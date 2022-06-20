@@ -16,6 +16,7 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 - 群文件自动分类
 - 测试服权限申请
 - 假人登记/自动踢出未登记假人
+- 解决配置文件混乱问题
 
 ## 配置文件详解
 
@@ -36,12 +37,19 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 | db_password  | 数据库密码（str） |
 | database  | 数据库库名（str） |
 
+### RCON服务器部分（服务器执行命令）
+|  Key   | Value  |
+|  :----:  | :----:  |
+| RCON_host  | RCON地址（str） |
+| RCON_post  | RCON端口（int） |
+| RCON_password  | RCON密码（str） |
+
 ### 问答模块（FAQ）
 |  Key   | Value  |
 |  :----:  | :----:  |
 | qun  | 启用的群号（global代表所有群生效） |
-| F  | 问题 |
-| Q  | 答案 |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |
 
 ### 版本检查（Check-Minecraft-Version）
 |  Key   | Value  |
