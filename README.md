@@ -59,7 +59,7 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 | F  | 问题关键字 |
 | Q  | 回答 |
 
-### [modules.json](config.json/modules.json)模块开关
+### [modules.json](config/modules.json)模块开关
 
 |  Key   | Value  |
 |  :----:  | :----:  |
