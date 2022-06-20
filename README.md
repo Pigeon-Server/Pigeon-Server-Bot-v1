@@ -40,8 +40,8 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 |  Key   | Value  |
 |  :----:  | :----:  |
 | qun  | 启用的群号（global代表所有群生效） |
-| 单元格  | 单元格 |
-| 单元格  | 单元格 |
+| F  | 问题 |
+| Q  | 答案 |
 
 ### 版本检查（Check-Minecraft-Version）
 |  Key   | Value  |
