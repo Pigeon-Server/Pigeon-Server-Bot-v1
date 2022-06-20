@@ -19,7 +19,9 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 
 ## 配置文件详解
 
-### 机器人本体
+### [config.json](config/config.json)主配置文件
+
+#### 机器人本体
 |  Key   | Value  |
 |  :----:  | :----:  |
 | QQ  | 机器人的QQ号（int） |
@@ -28,7 +30,7 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 | post  | mirai-api-http HTTP端口（int） |
 | hostname  | mirai-api-http HTTP地址（str） |
 
-### 数据库（DB）
+#### 数据库（DB）
 |  Key   | Value  |
 |  :----:  | :----:  |
 | db_host  | 数据库地址（str） |
@@ -36,25 +38,35 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 | db_password  | 数据库密码（str） |
 | database  | 数据库库名（str） |
 
-### RCON服务器部分（服务器执行命令）
+#### RCON服务器部分（服务器执行命令）
 |  Key   | Value  |
 |  :----:  | :----:  |
 | RCON_host  | RCON地址（str） |
 | RCON_post  | RCON端口（int） |
 | RCON_password  | RCON密码（str） |
 
-### 问答模块（FAQ）
-|  Key   | Value  |
-|  :----:  | :----:  |
-| qun  | 启用的群号（global代表所有群生效） |
-| 单元格  | 单元格 |
-| 单元格  | 单元格 |
-
-### 版本检查（Check-Minecraft-Version）
+#### 版本检查（Check-Minecraft-Version）
 |  Key   | Value  |
 |  :----:  | :----:  |
 | release  | 发行版本存储 |
 | snapshot  | 快照版本存储 |
+
+### [FAQ.json](config/FAQ.json)问答模块配置
+
+|  Key   | Value  |
+|  :----:  | :----:  |
+| qun  | 启用的群号（global代表所有群生效） |
+| F  | 问题关键字 |
+| Q  | 回答 |
+
+### [modules.json](config.json/modules.json)模块开关
+
+|  Key   | Value  |
+|  :----:  | :----:  |
+| enableBanlist | 黑名单开关 |
+| enableBotmanager | 假人管理开关 |
+| enableTestop | 测试服权限开关 |
+| enableWhitelist | 白名单开关 |
 
 ## 使用的SDK
 [YiriMirai](https://github.com/YiriMiraiProject/YiriMirai)
