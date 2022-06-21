@@ -48,14 +48,14 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 
 #### 多服务器人数查询
 ```json
-    "serverlist": [
-		"服务器1IP",
-		"服务器2IP"
-	],
-	"servername": [
-		"服务器1",
-		"服务器2"
-	]
+"serverlist": [
+	"服务器1IP",
+	"服务器2IP"
+],
+"servername": [
+	"服务器1",
+	"服务器2"
+]
 ```
 
 #### 版本检查（Check-Minecraft-Version）
