@@ -46,6 +46,18 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 | RCON_post  | RCON端口（int） |
 | RCON_password  | RCON密码（str） |
 
+#### 多服务器人数查询
+```json
+    "serverlist": [
+		"服务器1IP",
+		"服务器2IP"
+	],
+	"servername": [
+		"服务器1",
+		"服务器2"
+	]
+```
+
 #### 版本检查（Check-Minecraft-Version）
 |  Key   | Value  |
 |  :----:  | :----:  |
@@ -54,13 +66,31 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 
 ### [FAQ.json](config/FAQ.json)问答模块配置
 
-|  Key   | Value  |
-|  :----:  | :----:  |
-| qun  | 启用的群号（global代表所有群生效） |
-| F  | 问题关键字 |
-| Q  | 回答 |
+```json
+{
+	"FAQ": [
+		{
+			"qun": 群号（global代表所有群生效）,
+			"问题关键字":"解答"
+		},
+        {
+			"qun": 群号（global代表所有群生效）,
+			"问题关键字":"解答"
+		}
+    ]
+}    
+```
 
 ### [modules.json](config/modules.json)模块开关
+
+```json
+{
+	"enable_banlist": "true",
+	"enable_botmanager": "true",
+	"enable_testop": "true",
+	"enable_whitelist": "true"
+}
+```
 
 |  Key   | Value  |
 |  :----:  | :----:  |
