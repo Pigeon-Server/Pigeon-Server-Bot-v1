@@ -70,11 +70,11 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 {
 	"FAQ": [
 		{
-			"qun": 群号（global代表所有群生效）,
+			"qun": "群号（global代表所有群生效）",
 			"问题关键字":"解答"
 		},
         {
-			"qun": 群号（global代表所有群生效）,
+			"qun": "群号（global代表所有群生效）",
 			"问题关键字":"解答"
 		}
     ]
