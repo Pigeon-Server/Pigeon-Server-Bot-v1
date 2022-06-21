@@ -1,5 +1,5 @@
 # Pigeon Server Bot
-A mirai plugin for remotely executing minecraft commands.
+A [mirai-api-http plugin](https://github.com/project-mirai/mirai-api-http) for remotely executing minecraft commands.
 
 Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使用RCON
 
@@ -64,7 +64,7 @@ Pigeon Server · 气人姬部分功能实现，Minecraft服务器执行部分使
 | release  | 发行版本存储 |
 | snapshot  | 快照版本存储 |
 
-### [FAQ.json](config/FAQ.json)问答模块配置
+### [FAQ.json](config/FAQ.json)问答模块配置（此模块将会忽略所有!开头的问题）
 
 ```json
 {
